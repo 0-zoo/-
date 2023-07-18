@@ -1,0 +1,26 @@
+# https://school.programmers.co.kr/learn/courses/30/lessons/181832
+
+
+def solution(n):
+    answer = [[0 for _ in range(n)] for _ in range(n)]
+    dr = [-1, 0, 1, 0]
+    dc = [0, 1, 0, -1]
+    r = c = 0
+    d = 1
+    num = 1
+    answer[r][c] = num
+
+    while True:
+        if(num>=n*n): break
+        num += 1
+        a = r + dr[d]
+        b = c + dc[d]
+        if 0 <= a < n and 0 <= b < n and answer[a][b] == 0:
+            r = a
+            c = b
+            answer[r][c] = num
+        else:
+            d = (d + 1) % 4
+            num -= 1
+
+    return answer
