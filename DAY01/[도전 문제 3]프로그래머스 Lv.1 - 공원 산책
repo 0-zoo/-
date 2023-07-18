@@ -1,0 +1,42 @@
+# https://school.programmers.co.kr/learn/courses/30/lessons/172928
+
+# ["방향 거리", "방향 거리" … ]
+# 예를 들어 "E 5"는 로봇 강아지가 현재 위치에서 동쪽으로 5칸 이동했다는 의미이다. 로봇 강아지는 명령을 수행하기 전에 다음 두 가지를 먼저 확인한다.
+# 주어진 방향으로 이동할 때 공원을 벗어나는지 확인한다.
+# 주어진 방향으로 이동 중 장애물을 만나는지 확인한다.
+# 위 두 가지중 어느 하나라도 해당된다면, 로봇 강아지는 해당 명령을 무시하고 다음 명령을 수행한다.
+# 공원의 가로 길이가 W, 세로 길이가 H라고 할 때, 공원의 좌측 상단의 좌표는 (0, 0), 우측 하단의 좌표는 (H - 1, W - 1) 이다.
+
+dr = [-1, 0, 1, 0]
+dc = [0, 1, 0, -1]
+dict = {'N': 0, 'E': 1, 'S': 2, 'W': 3}
+
+def solution(park, routes):
+    ROW = len(park)
+    COL = len(park[0])
+    r, c = 0, 0
+    
+    for i in range(ROW):
+        for j in range(COL):
+            if(park[i][j]) == 'S':
+                r, c = i, j
+
+    for command in routes:
+        ignore = 0
+        command = command.split()
+        op = command[0]
+        n = int(command[1])
+
+        for i in range(n):
+            tmp_r = r + dr[dict[op]]*(i+1)
+            tmp_c = c + dc[dict[op]]*(i+1)
+            if tmp_r < 0 or tmp_r >= ROW or tmp_c < 0 or tmp_c >= COL or park[tmp_r][tmp_c] == 'X':
+                ignore = 1
+
+        if ignore:
+            continue
+
+        r = r + n*dr[dict[op]]
+        c = c + n*dc[dict[op]]
+
+    return [r, c]
