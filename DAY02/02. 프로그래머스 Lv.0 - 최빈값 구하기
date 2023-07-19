@@ -1,0 +1,28 @@
+# https://school.programmers.co.kr/learn/courses/30/lessons/120812
+# 최빈값은 주어진 값 중에서 가장 자주 나오는 값을 의미한다. 
+# 정수 배열 array가 매개변수로 주어질 때, 최빈값을 return 하도록 solution 함수를 완성하라. 
+# 최빈값이 여러 개면 -1을 return 한다.
+
+
+from collections import defaultdict, Counter
+
+def solution(array):
+    answer = []
+    max = 0
+    cnt = defaultdict(int)
+
+    for key in array:
+        cnt[key] += 1
+        if max <= cnt[key]:
+            max = cnt[key]
+
+    for key in cnt:
+        if cnt[key] != max:
+             continue
+        else:
+            answer.append(key)
+
+    if len(answer) > 1:
+        return -1
+    else:
+        return answer[0]
